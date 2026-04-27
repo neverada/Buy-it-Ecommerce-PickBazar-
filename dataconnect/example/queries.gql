@@ -1,0 +1,57 @@
+# 1. Query to list all products, accessible to anyone (public)
+query ListAllProducts @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  products {
+    id
+    name
+    description
+    price
+    imageUrl
+    stockQuantity
+    category {
+      name
+    }
+  }
+}
+
+# 2. Query to get a user's cart items, only accessible to the logged-in user
+query GetMyCartItems @auth(level: USER) {
+  cartItems(where: { userId: { eq_expr: "auth.uid" } }) {
+    id
+    quantity
+    product {
+      id
+      name
+      price
+      imageUrl
+    }
+  }
+}
+
+# 3. Mutation to add a product to the current user's cart
+mutation AddProductToCart($productId: UUID!, $quantity: Int!) @auth(level: USER) {
+  cartItem_upsert(
+    data: {
+      productId: $productId,
+      userId_expr: "auth.uid",
+      quantity_update: [{ inc: $quantity }]
+    }
+  )
+}
+
+# 4. Query to list a user's orders, only accessible to the logged-in user
+query GetMyOrders @auth(level: USER) {
+  orders(where: { userId: { eq_expr: "auth.uid" } }, orderBy: [{ orderDate: DESC }]) {
+    id
+    orderDate
+    totalAmount
+    status
+    orderItems {
+      product {
+        name
+        price
+      }
+      quantity
+      priceAtTimeOfOrder
+    }
+  }
+}

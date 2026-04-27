@@ -1,0 +1,54 @@
+mutation SeedData @transaction @auth(level: PUBLIC, insecureReason: "This is seed data for development and testing purposes.") {
+  category_insertMany(data: [
+    {
+      id: "471e8436-829d-4357-9d7e-7a54a01c4302",
+      name: "Electronics",
+      description: "Devices and gadgets.",
+      createdAt: "2023-10-26T10:00:00Z"
+    },
+    {
+      id: "d9e7c3b2-1a0f-4e67-8b5c-2a4d9f0e1c2a",
+      name: "Books",
+      description: "Fiction and non-fiction books.",
+      createdAt: "2023-10-26T10:05:00Z"
+    },
+    {
+      id: "b1f0e9d8-7c6a-5b4a-3d2c-1a0b9f8e7d6c",
+      name: "Home Goods",
+      description: "Items for household use.",
+      createdAt: "2023-10-26T10:10:00Z"
+    }
+  ])
+  product_insertMany(data: [
+    {
+      id: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      name: "Laptop Pro X",
+      description: "Powerful laptop for professionals.",
+      price: 1200.00,
+      createdAt: "2023-10-26T11:00:00Z",
+      imageUrl: "https://example.com/laptop.jpg",
+      categoryId: "471e8436-829d-4357-9d7e-7a54a01c4302",
+      stockQuantity: 50
+    },
+    {
+      id: "f0e9d8c7-b6a5-4321-fedc-ba9876543210",
+      name: "The Martian",
+      description: "Science fiction novel by Andy Weir.",
+      price: 15.99,
+      createdAt: "2023-10-26T11:05:00Z",
+      imageUrl: "https://example.com/martian.jpg",
+      categoryId: "d9e7c3b2-1a0f-4e67-8b5c-2a4d9f0e1c2a",
+      stockQuantity: 200
+    },
+    {
+      id: "3e2d1c0b-9a8b-7c6d-5e4f-3a2b1c0d9e8f",
+      name: "Coffee Maker Deluxe",
+      description: "Programmable coffee maker.",
+      price: 75.50,
+      createdAt: "2023-10-26T11:10:00Z",
+      imageUrl: "https://example.com/coffeemaker.jpg",
+      categoryId: "b1f0e9d8-7c6a-5b4a-3d2c-1a0b9f8e7d6c",
+      stockQuantity: 100
+    }
+  ])
+}
